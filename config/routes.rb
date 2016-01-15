@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :ingredients
+  resources :styles
   resources :recipes
   resources :chefs
   get 'pages/home'
