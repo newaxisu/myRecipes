@@ -9,7 +9,13 @@
           <img class='img-thumbnail' src='http://images.sodahead.com/polls/004280373/2253858223_blt_set_free_overlay_bg_xlarge.jpeg' alt="sandwich">
         </section>
       </div>
-      <div class="col-lg-8 well">
+      <div class="col-md-2">
+        <section class="chef_info center">
+          <%= gravatar_for recipe.chef, size:100 %>
+          <h5>Chef name: <!--%= recipe.chef.name %--></h5>
+        </section>
+      </div>
+      <div class="col-lg-6 well">
         <h4><%= link_to recipe.name, " " %></h4>
         <p><%= recipe.summary %></p>
         <p>
@@ -17,6 +23,7 @@
         </p>
       </div>
   </div>
+  <hr />
 <% end %>
 <hr />
 <table>
