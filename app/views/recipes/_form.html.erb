@@ -1,33 +1,17 @@
-<%= form_for(@recipe) do |f| %>
-  <% if @recipe.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
-
-      <ul>
-      <% @recipe.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+<%= render 'shared/errors', obj: @recipe %>
+<div class="row">
+  <div class="well col-md-8 col-md-offset-2">
+    <%= form_for @recipe do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+ 
+      <%= f.label :summary %>
+      <%= f.text_field :summary %>
+      
+      <%= f.label :description %>
+      <%= f.text_area :description, rows:10 %>
+      
+      <%= f.submit(@recipe.new_record? ? 'Create Recipe' : 'Update Recipe', class: "btn btn-success") %>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :summary %><br>
-    <%= f.text_area :summary %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :chef_id %><br>
-    <%= f.number_field :chef_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

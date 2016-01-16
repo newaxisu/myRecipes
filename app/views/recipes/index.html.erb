@@ -1,7 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<h1>All Recipes</h1>
-<hr />
+<%= render 'shared/page_title', title: "All Recipes" %>
 <% @recipes.each do |recipe| %>
   <div class="row">
       <div class="col-md-2">
@@ -12,11 +9,11 @@
       <div class="col-md-2">
         <section class="chef_info center">
           <%= gravatar_for recipe.chef, size:100 %>
-          <h5>Chef name: <!--%= recipe.chef.name %--></h5>
+          <h5>Chef: <%= recipe.chef.name %></h5>
         </section>
       </div>
       <div class="col-lg-6 well">
-        <h4><%= link_to recipe.name, " " %></h4>
+        <h4><%= link_to recipe.name, recipe_path(recipe) %></h4>
         <p><%= recipe.summary %></p>
         <p>
           <span class='quite'><small><%= time_ago_in_words(recipe.created_at) %> ago</small></span>
