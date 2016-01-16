@@ -1,11 +1,7 @@
 <%= render 'shared/page_title', title: "All Recipes" %>
 <% @recipes.each do |recipe| %>
   <div class="row">
-      <div class="col-md-2">
-        <section class="chef_info center">
-          <img class='img-thumbnail' src='http://images.sodahead.com/polls/004280373/2253858223_blt_set_free_overlay_bg_xlarge.jpeg' alt="sandwich">
-        </section>
-      </div>
+
       <div class="col-md-2">
         <section class="chef_info center">
           <%= gravatar_for recipe.chef, size:100 %>
@@ -16,39 +12,13 @@
         <h4><%= link_to recipe.name, recipe_path(recipe) %></h4>
         <p><%= recipe.summary %></p>
         <p>
-          <span class='quite'><small><%= time_ago_in_words(recipe.created_at) %> ago</small></span>
+          <span class='quiet'><small><%= time_ago_in_words(recipe.created_at) %> ago</small></span>
         </p>
+      </div>
+      <div class="col-md-4">
+        <%= image_tag(recipe.picture.url, size: "250x150", class: "gravatar")if recipe.picture? %>
       </div>
   </div>
   <hr />
 <% end %>
-<hr />
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Summary</th>
-      <th>Description</th>
-      <th>Chef</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @recipes.each do |recipe| %>
-      <tr>
-        <td><%= recipe.name %></td>
-        <td><%= recipe.summary %></td>
-        <td><%= recipe.description %></td>
-        <td><%= recipe.chef.name %></td>
-        <td><%= link_to 'Show', recipe %></td>
-        <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
-        <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Recipe', new_recipe_path %>
