@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  chef_id: 1
+  review: MyText
+  recipe_id: 1
+  headline: MyString
+
+two:
+  chef_id: 1
+  review: MyText
+  recipe_id: 1
+  headline: MyString

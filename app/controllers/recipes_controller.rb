@@ -4,7 +4,10 @@ class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
   def index
-    @recipes = Recipe.all
+    # at some point this becomes
+    #@recipes = Recipe.all.sort_by{|likes| likes.thumbs_up_total}.reverse
+    #@recipes = Recipe.all
+    @recipes = Recipe.paginate(page: params[:page], per_page: 4)
   end
 
   # GET /recipes/1
@@ -56,6 +59,18 @@ class RecipesController < ApplicationController
       format.html { redirect_to recipes_url, notice: 'Recipe was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+  
+  def like
+    @recipe = Recipe.find(params[:id])
+    like.new(like: params[:like], chef: Chef.first, recipe: @recipe)
+    #like.save
+    flash[:success] = "Your selection was successful"
+    #binding.pry
+    redirect_to :back
+  end
+  
+  def unlike
   end
 
   private

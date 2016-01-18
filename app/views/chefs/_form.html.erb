@@ -1,25 +1,19 @@
+<%= render 'shared/errors', obj: @chef %>
+
 <%= form_for(@chef) do |f| %>
-  <% if @chef.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@chef.errors.count, "error") %> prohibited this chef from being saved:</h2>
-
-      <ul>
-      <% @chef.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :email %><br>
+    <%= f.label :email %>
     <%= f.text_field :email %>
   </div>
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit(@chef.new_record? ? 'Register' : 'Update', class: "btn btn-success") %>
   </div>
 <% end %>

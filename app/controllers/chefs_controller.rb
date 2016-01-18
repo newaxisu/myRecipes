@@ -4,12 +4,14 @@ class ChefsController < ApplicationController
   # GET /chefs
   # GET /chefs.json
   def index
-    @chefs = Chef.all
+    @chefs = Chef.paginate(page: params[:page], per_page: 3)
   end
 
   # GET /chefs/1
   # GET /chefs/1.json
   def show
+    @chef = Chef.find(params[:id])
+    @recipes = @chef.recipes.paginate(page: params[:page], per_page: 3)
   end
 
   # GET /chefs/new
@@ -42,7 +44,7 @@ class ChefsController < ApplicationController
   def update
     respond_to do |format|
       if @chef.update(chef_params)
-        format.html { redirect_to @chef, notice: 'Chef was successfully updated.' }
+        format.html { redirect_to recipes_path, notice: 'Chef was successfully updated.' }
         format.json { render :show, status: :ok, location: @chef }
       else
         format.html { render :edit }
@@ -69,6 +71,6 @@ class ChefsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def chef_params
-      params.require(:chef).permit(:name, :email)
+      params.require(:chef).permit(:name, :email, :password)
     end
 end
