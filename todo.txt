@@ -1,0 +1,2 @@
+Likes partially implemented / was causing an infinite loop
+Authentication is buggy / signup; login; new recipe; view/edit has trouble

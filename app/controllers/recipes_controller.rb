@@ -1,6 +1,5 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
-
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
   # GET /recipes
@@ -15,7 +14,9 @@ class RecipesController < ApplicationController
   # GET /recipes/1
   # GET /recipes/1.json
   def show
-    @recipes = @chef.recipes.paginate(page: params[:page], per_page: 3)
+    #@recipes = recipes.paginate(page: params[:page], per_page: 3)
+    @recipe = Recipe.find(params[:id])
+    #@recipe = Recipe.find(11)
   end
 
   # GET /recipes/new
