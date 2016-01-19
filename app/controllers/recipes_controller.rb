@@ -1,6 +1,8 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
 
+  before_action :require_same_user, only: [:edit, :update, :destroy]
+
   # GET /recipes
   # GET /recipes.json
   def index
@@ -13,6 +15,7 @@ class RecipesController < ApplicationController
   # GET /recipes/1
   # GET /recipes/1.json
   def show
+    @recipes = @chef.recipes.paginate(page: params[:page], per_page: 3)
   end
 
   # GET /recipes/new
@@ -28,7 +31,7 @@ class RecipesController < ApplicationController
   # POST /recipes.json
   def create
     @recipe = Recipe.new(recipe_params)
-    @recipe.chef = Chef.find(4)
+    @recipe.chef = current_user
 
     if @recipe.save
       flash[:success] = "Your recipe was created successfully"
@@ -42,11 +45,10 @@ class RecipesController < ApplicationController
   # PATCH/PUT /recipes/1.json
   def update
     @recipe = Recipe.find(params[:id])
-
     if @recipe.update(recipe_params)
       flash[:success] = "Your recipe was updated successfully"
       redirect_to recipe_path(@recipe)
-    else
+     else
       render :edit
     end
   end
@@ -83,4 +85,13 @@ class RecipesController < ApplicationController
     def recipe_params
       params.require(:recipe).permit(:name, :summary, :description, :chef_id, :picture)
     end
+    
+    def require_same_user
+      if current_user != @chef
+        flash[:danger] = "You can't mess with other people's stuff!"
+        redirect_to root_path
+      end
+    end
+    
+
 end

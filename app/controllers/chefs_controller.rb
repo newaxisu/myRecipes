@@ -73,4 +73,8 @@ class ChefsController < ApplicationController
     def chef_params
       params.require(:chef).permit(:name, :email, :password)
     end
+    
+    def set_chef
+      @chef = Chef.find(params[:id])
+    end
 end

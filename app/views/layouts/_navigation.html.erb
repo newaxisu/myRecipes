@@ -1,17 +1,31 @@
 <nav class='navbar navbar-fixed-top navbar-default'>
   <div class='container'>
     <%= link_to "myRecipes", root_path, class: "btn btn-lg btn-success", id: "logo" %>
-    <div class='nav_item'>
-      <%= link_to "Sign Up", "/register", class: "btn btn-default btn-warning" %>
-    </div>
-    <div class='nav_item'>
-      <%= link_to "Sign In", "/login", class: "btn btn-default btn-warning" %>
-    </div>
-    <div class='nav_item'>
-      <%= link_to "Sign Out", "/logout", class: "btn btn-default btn-warning" %>
-    </div>
-    <div class='nav_item'>
-      <%= link_to "New Recipe",new_recipe_path , class: "btn btn-default btn-warning" %>
-    </div>
+    <% if not logged_in? %>
+      <div class='nav_item'>
+        <%= link_to "Sign Up", "/register", class: "btn btn-default btn-warning" %>
+      </div>
+      <div class='nav_item'>
+        <%= link_to "Sign In", "/login", class: "btn btn-default btn-success" %>
+      </div>
+    <% end %>
+    <% if logged_in? %>
+      <div class='nav_item'>
+        <%= link_to "New Recipe",new_recipe_path , class: 'btn btn-default btn-warning' %>
+      </div>
+      <div class="nav_item">
+        <div class="dropdown">
+          <%= link_to '#', class: 'btn btn-default btn-danger dropdown-toggle', 'data-toggle' =>"dropdown" do %>
+            <%= current_user.name %> <b class="caret"></b>
+          <% end %>
+          <ul class='dropdown-menu'>
+            <li><%= link_to "View Profile", chef_path(current_user) %></li>
+            <li><%= link_to "Edit Profile", edit_chef_path(current_user) %></li>
+            <li class="divider"></li>
+            <li><%= link_to "Logout", logout_path %></li>
+          </ul>
+        </div>
+      </div>
+    <% end %>
   </div>
 </nav>
